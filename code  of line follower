@@ -1,1 +1,84 @@
+// Motor pins
+const int motorA1 = 2;  // Motor A forward
+const int motorA2 = 3;  // Motor A backward
+const int motorB1 = 4;  // Motor B forward
+const int motorB2 = 5;  // Motor B backward
+
+// Sensor pins
+const int leftSensor = A0;  // Left line sensor
+const int rightSensor = A1; // Right line sensor
+
+// Threshold for line detection
+const int threshold = 500;  // Adjust this value based on your sensor readings
+
+void setup() {
+  // Initialize motor pins as outputs
+  pinMode(motorA1, OUTPUT);
+  pinMode(motorA2, OUTPUT);
+  pinMode(motorB1, OUTPUT);
+  pinMode(motorB2, OUTPUT);
+  
+  // Initialize sensor pins as inputs
+  pinMode(leftSensor, INPUT);
+  pinMode(rightSensor, INPUT);
+  
+  // Start serial communication for debugging (optional)
+  Serial.begin(9600);
+}
+
+void loop() {
+  // Read sensor values
+  int leftValue = analogRead(leftSensor);
+  int rightValue = analogRead(rightSensor);
+
+  // Debugging: print sensor values to Serial Monitor
+  Serial.print("Left Sensor: ");
+  Serial.print(leftValue);
+  Serial.print(" Right Sensor: ");
+  Serial.println(rightValue);
+
+  // Determine motor behavior based on sensor readings
+  if (leftValue > threshold && rightValue > threshold) {
+    // Both sensors detect the line - move forward
+    forward();
+  } else if (leftValue < threshold && rightValue > threshold) {
+    // Only left sensor does not detect the line - turn right
+    turnRight();
+  } else if (leftValue > threshold && rightValue < threshold) {
+    // Only right sensor does not detect the line - turn left
+    turnLeft();
+  } else {
+    // Both sensors do not detect the line - stop
+    stop();
+  }
+}
+
+// Functions to control motor movements
+void forward() {
+  digitalWrite(motorA1, HIGH);
+  digitalWrite(motorA2, LOW);
+  digitalWrite(motorB1, HIGH);
+  digitalWrite(motorB2, LOW);
+}
+
+void turnRight() {
+  digitalWrite(motorA1, HIGH);
+  digitalWrite(motorA2, LOW);
+  digitalWrite(motorB1, LOW);
+  digitalWrite(motorB2, LOW);
+}
+
+void turnLeft() {
+  digitalWrite(motorA1, LOW);
+  digitalWrite(motorA2, LOW);
+  digitalWrite(motorB1, HIGH);
+  digitalWrite(motorB2, LOW);
+}
+
+void stop() {
+  digitalWrite(motorA1, LOW);
+  digitalWrite(motorA2, LOW);
+  digitalWrite(motorB1, LOW);
+  digitalWrite(motorB2, LOW);
+}
 
