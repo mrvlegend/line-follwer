@@ -1,83 +1,93 @@
-// Motor pins
-const int motorA1 = 2;  // Motor A forward
-const int motorA2 = 3;  // Motor A backward
-const int motorB1 = 4;  // Motor B forward
-const int motorB2 = 5;  // Motor B backward
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+    .sub{
+        background-color: rgb(200, 0, 0);
+        color: rgb(255, 255, 255);
+        border:none;
+        height: 36px;
+        width: 105px;
+        border-radius:2px ;
+        cursor: pointer;
+        margin-right: 8px;
+        margin-bottom: 8px;
+        display: inline;
+        
+    }
+    .sub:hover{
+        opacity:0.3;
+    }
+    .sub:active{
+     opacity: 1; 
+    }
+    .jn{
+        background-color: white;
+        border-color: rgb(41,118,211);
+        border-style:solid;
+        border-width:1px;
+        color:rgb(41,118,211) ;
+        border-radius: 2px;
+        cursor: pointer;
+        padding-left: 30px;
+        padding-top: 20px;
+        padding-right: 30px;
+        padding-bottom: 20px;
+        transition:   background-color 1s;
+        vertical-align:buttom;
+        display: inline;
+       
+        
+        
+    
+        
+    
+    }
+    .jn:hover{
+        background-color: rgb(72, 216, 229);
+        box-shadow: 10px 10px 10px rgba(155, 155, 155, 0.9);
+       
+    
+        
+    
+        }
+    .jn:active{
+        background-color: rgb(255, 255, 255);
+        
+    
+        }
+    
+    
+    .Tt{
+        background-color: rgb(80, 175, 253);
+        color: rgb(255, 255, 255);
+        border:none;
+        height: 36px;
+        width: 70px;
+        border-radius:18px ;
+        cursor: pointer;
+        margin-left: 8px;
+        border-color: rgb(41,118,211);
+        border-style:solid;
+        border-width:1px;
+        font-weight: bold;
+        font-size: 15px;    
+        display: inline;  
+           }
+           .sat{
+            color: blue;
+            background-color: aqua;
+            margin-left: 20px;
+           }
+           
+           </style>
+           </head>
 
-// Sensor pins
-const int leftSensor = A0;  // Left line sensor
-const int rightSensor = A1; // Right line sensor
+<center>
+<button class="sub">SUBSCRIBE</button>
+<button class="jn">JOIN my channel</button>
+<button class="Tt">Tweet</button>
+<button class="sat">SATHWIK</button>
+</center>
+</html>
 
-// Threshold for line detection
-const int threshold = 500;  // Adjust this value based on your sensor readings
-
-void setup() {
-  // Initialize motor pins as outputs
-  pinMode(motorA1, OUTPUT);
-  pinMode(motorA2, OUTPUT);
-  pinMode(motorB1, OUTPUT);
-  pinMode(motorB2, OUTPUT);
-  
-  // Initialize sensor pins as inputs
-  pinMode(leftSensor, INPUT);
-  pinMode(rightSensor, INPUT);
-  
-  // Start serial communication for debugging (optional)
-  Serial.begin(9600);
-}
-
-void loop() {
-  // Read sensor values
-  int leftValue = analogRead(leftSensor);
-  int rightValue = analogRead(rightSensor);
-
-  // Debugging: print sensor values to Serial Monitor
-  Serial.print("Left Sensor: ");
-  Serial.print(leftValue);
-  Serial.print(" Right Sensor: ");
-  Serial.println(rightValue);
-
-  // Determine motor behavior based on sensor readings
-  if (leftValue > threshold && rightValue > threshold) {
-    // Both sensors detect the line - move forward
-    forward();
-  } else if (leftValue < threshold && rightValue > threshold) {
-    // Only left sensor does not detect the line - turn right
-    turnRight();
-  } else if (leftValue > threshold && rightValue < threshold) {
-    // Only right sensor does not detect the line - turn left
-    turnLeft();
-  } else {
-    // Both sensors do not detect the line - stop
-    stop();
-  }
-}
-
-// Functions to control motor movements
-void forward() {
-  digitalWrite(motorA1, HIGH);
-  digitalWrite(motorA2, LOW);
-  digitalWrite(motorB1, HIGH);
-  digitalWrite(motorB2, LOW);
-}
-
-void turnRight() {
-  digitalWrite(motorA1, HIGH);
-  digitalWrite(motorA2, LOW);
-  digitalWrite(motorB1, LOW);
-  digitalWrite(motorB2, LOW);
-}
-
-void turnLeft() {
-  digitalWrite(motorA1, LOW);
-  digitalWrite(motorA2, LOW);
-  digitalWrite(motorB1, HIGH);
-  digitalWrite(motorB2, LOW);
-}
-
-void stop() {
-  digitalWrite(motorA1, LOW);
-  digitalWrite(motorA2, LOW);
-  digitalWrite(motorB1, LOW);
-  digitalWrite(motorB2, LOW);
-}
