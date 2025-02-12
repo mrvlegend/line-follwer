@@ -81,12 +81,14 @@
            
            </style>
            </head>
-
+<body>
+    
 <center>
 <button class="sub">SUBSCRIBE</button>
 <button class="jn">JOIN my channel</button>
 <button class="Tt">Tweet</button>
 <button class="sat">SATHWIK</button>
 </center>
+</body>
 </html>
 
