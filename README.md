@@ -81,6 +81,11 @@
            
            </style>
            </head>
+            @media (max-width: 600px) {
+            body{
+                width: 95%; 
+            }
+        }
 <body>
     
 <center>
